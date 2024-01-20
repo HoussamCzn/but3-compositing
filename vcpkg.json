@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "compositing",
+  "version-semver": "0.1.0",
+  "dependencies": [
+    {
+      "name": "imgui",
+      "version>=": "1.90#3",
+      "features": [
+        "glfw-binding",
+        "vulkan-binding"
+      ]
+    }
+  ],
+  "default-features": [],
+  "features": {
+    "test": {
+      "description": "Dependencies for testing",
+      "dependencies": [
+        {
+          "name": "catch2",
+          "version>=": "3.5.2"
+        }
+      ]
+    }
+  },
+  "builtin-baseline": "a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6"
+}
