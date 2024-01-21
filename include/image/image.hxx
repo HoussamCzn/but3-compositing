@@ -4,7 +4,7 @@
 #include <ostream> // std::ostream
 #include <vector>  // std::vector
 
-namespace compositing
+namespace compositing::ppm
 {
     /*
      * A pixel is a single point in an image.
@@ -61,4 +61,4 @@ namespace compositing
         std::uint32_t width{0};    //< The width of the image.
         std::uint32_t height{0};   //< The height of the image.
     };
-} // namespace compositing
+} // namespace compositing::ppm
