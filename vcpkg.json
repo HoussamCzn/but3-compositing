@@ -7,8 +7,9 @@
       "name": "imgui",
       "version>=": "1.90#3",
       "features": [
+        "docking-experimental",
         "glfw-binding",
-        "vulkan-binding"
+        "opengl3-binding"
       ]
     }
   ],

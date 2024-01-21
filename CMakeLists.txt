@@ -27,9 +27,9 @@ target_compile_features(compositing_lib PUBLIC cxx_std_20)
 
 find_package(imgui CONFIG REQUIRED)
 find_package(glfw3 REQUIRED)
-find_package(Vulkan REQUIRED)
+find_package(OpenGL REQUIRED)
 
-target_link_libraries(compositing_lib PUBLIC Vulkan::Vulkan glfw imgui::imgui)
+target_link_libraries(compositing_lib PUBLIC imgui::imgui glfw OpenGL::GL)
 
 # ---- Declare executable ----
 
