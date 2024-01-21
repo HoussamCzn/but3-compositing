@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cstdint> // std::uint8_t
-#include <format>  // std::formatter
 #include <ostream> // std::ostream
 #include <vector>  // std::vector
 
