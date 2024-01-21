@@ -60,6 +60,49 @@ namespace compositing::ppm
 
             return img;
         }
+
+        /*
+         * @brief Write a PPM image to a file in ASCII format.
+         * @param image The image to write.
+         * @param path The path to the file.
+         * @return True if the image was written successfully, false otherwise.
+         */
+        [[nodiscard]] auto write_ascii(image const& image, std::filesystem::path const& path) noexcept -> bool
+        {
+            std::ofstream file{path};
+            if (!file.is_open()) [[unlikely]] { return false; }
+
+            file << "P3\n";
+            file << image.width << " " << image.height << "\n";
+            file << "255\n";
+
+            for (auto const& pixel : image.pixels) { file << pixel << "\n"; }
+
+            return true;
+        }
+
+        /*
+         * @brief Write a PPM image to a file in binary format.
+         * @param image The image to write.
+         * @param path The path to the file.
+         * @return True if the image was written successfully, false otherwise.
+         */
+        [[nodiscard]] auto write_binary(image const& image, std::filesystem::path const& path) noexcept -> bool
+        {
+            std::ofstream file{path};
+            if (!file.is_open()) [[unlikely]] { return false; }
+
+            file << "P6\n";
+            file << image.width << " " << image.height << "\n";
+            file << "255\n";
+
+            auto const* const bytes = std::bit_cast<char const*>(image.pixels.data());
+            auto const size = static_cast<std::streamsize>(image.pixels.size() * sizeof(pixel));
+
+            file.write(bytes, size);
+
+            return true;
+        }
     } // namespace
 
     /*
@@ -90,5 +133,32 @@ namespace compositing::ppm
         if (magic_number == "P6") { return read_binary(file, width, height); }
 
         return std::nullopt;
+    }
+
+    /*
+     * @brief Write a PPM image to a file.
+     * @param image The image to write.
+     * @param path The path to the file.
+     * @param fmt The format to use. (ascii or binary)
+     * @return True if the image was written successfully, false otherwise.
+     */
+    [[nodiscard]] auto write(image const& image, std::filesystem::path const& path, format fmt, bool can_overwrite) noexcept
+        -> bool
+    {
+        if (std::filesystem::exists(path) && !can_overwrite) [[unlikely]] { return false; }
+
+        switch (fmt)
+        {
+        case format::ascii:
+            return write_ascii(image, path);
+        case format::binary:
+            return write_binary(image, path);
+        default:
+#ifdef _MSC_VER
+            __assume(false);
+#else // ^^^ _MSC_VER // !_MSC_VER vvv
+            __builtin_unreachable();
+#endif
+        }
     }
 } // namespace compositing::ppm
