@@ -13,8 +13,7 @@ namespace compositing::ppm
          * @param path The path to the file.
          * @return The image if the file exists and is valid, std::nullopt otherwise.
          */
-        [[nodiscard]] auto read_ascii(std::ifstream& file, std::uint32_t width, std::uint32_t height) noexcept
-            -> std::optional<image>
+        [[nodiscard]] auto read_ascii(std::ifstream& file, std::uint32_t width, std::uint32_t height) noexcept -> image
         {
             image img = {
                 .pixels = std::vector<pixel>(static_cast<std::size_t>(width) * height),
@@ -47,8 +46,7 @@ namespace compositing::ppm
          * @param path The path to the file.
          * @return The image if the file exists and is valid, std::nullopt otherwise.
          */
-        [[nodiscard]] auto read_binary(std::ifstream& file, std::uint32_t width, std::uint32_t height) noexcept
-            -> std::optional<image>
+        [[nodiscard]] auto read_binary(std::ifstream& file, std::uint32_t width, std::uint32_t height) noexcept -> image
         {
             image img = {
                 .pixels = std::vector<pixel>(static_cast<std::size_t>(width) * height),
