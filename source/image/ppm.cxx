@@ -2,7 +2,7 @@
 
 #include <bit>     // std::bit_cast
 #include <cstddef> // std::size_t
-#include <fstream> // std::ifstream
+#include <fstream> // std::ifstream, std::ofstream
 
 namespace compositing::ppm
 {
