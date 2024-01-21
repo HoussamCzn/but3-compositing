@@ -1,6 +1,6 @@
 #pragma once
 
-#include "image.hxx" // compositing::image
+#include "image.hxx" // compositing::ppm::image
 
 #include <filesystem> // std::filesystem::path
 #include <optional>   // std::optional
@@ -30,5 +30,6 @@ namespace compositing::ppm
      * @param fmt The format to use. (ascii or binary)
      * @return True if the image was written successfully, false otherwise.
      */
-    [[nodiscard]] auto write(image const& image, std::filesystem::path const& path, format fmt = format::ascii) noexcept -> bool;
+    [[nodiscard]] auto write(image const& image, std::filesystem::path const& path, format fmt = format::ascii,
+                             bool can_overwrite = false) noexcept -> bool;
 } // namespace compositing::ppm
