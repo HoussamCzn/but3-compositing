@@ -12,7 +12,7 @@ include(Catch)
 # ---- Tests ----
 
 add_executable(compositing_test
-    source/compositing_test.cxx
+    source/ppm.test.cxx
 )
 
 target_link_libraries(
