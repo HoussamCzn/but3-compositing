@@ -30,3 +30,23 @@ TEST_CASE("Load a binary PPM file", "[compositing]")
     }
     else { FAIL("Failed to load image"); }
 }
+
+TEST_CASE("Save an ascii PPM file", "[compositing]")
+{
+    namespace ppm = compositing::ppm;
+
+    auto const img = ppm::read("../../../samples/lena.ppm");
+
+    if (img.has_value()) { REQUIRE(ppm::write(*img, "../../../samples/lena_v2.ppm", ppm::format::ascii, true)); }
+    else { FAIL("Failed to load image"); }
+}
+
+TEST_CASE("Save a binary PPM file", "[compositing]")
+{
+    namespace ppm = compositing::ppm;
+
+    auto const img = ppm::read("../../../samples/spheres.ppm");
+
+    if (img.has_value()) { REQUIRE(ppm::write(*img, "../../../samples/spheres_v2.ppm", ppm::format::binary, true)); }
+    else { FAIL("Failed to load image"); }
+}
