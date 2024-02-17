@@ -11,7 +11,7 @@ namespace compositing::ppm
      * @param path The path to the file.
      * @return The image from the file.
      */
-    [[nodiscard]] auto read_ascii(std::ifstream& file, std::uint32_t width, std::uint32_t height) noexcept -> image
+    [[nodiscard]] static auto read_ascii(std::ifstream& file, std::uint32_t width, std::uint32_t height) noexcept -> image
     {
         image img = {
             .pixels = std::vector<pixel>(static_cast<std::size_t>(width) * height),
@@ -44,7 +44,7 @@ namespace compositing::ppm
      * @param path The path to the file.
      * @return The image from the binary file.
      */
-    [[nodiscard]] auto read_binary(std::ifstream& file, std::uint32_t width, std::uint32_t height) noexcept -> image
+    [[nodiscard]] static auto read_binary(std::ifstream& file, std::uint32_t width, std::uint32_t height) noexcept -> image
     {
         image img = {
             .pixels = std::vector<pixel>(static_cast<std::size_t>(width) * height),
@@ -65,7 +65,7 @@ namespace compositing::ppm
      * @param path The path to the file.
      * @return True if the image was written successfully, false otherwise.
      */
-    [[nodiscard]] auto write_ascii(image const& image, std::filesystem::path const& path) noexcept -> bool
+    [[nodiscard]] static auto write_ascii(image const& image, std::filesystem::path const& path) noexcept -> bool
     {
         std::ofstream file{path};
         if (!file.is_open()) [[unlikely]] { return false; }
@@ -74,7 +74,7 @@ namespace compositing::ppm
         file << image.width << " " << image.height << "\n";
         file << "255\n";
 
-        for (auto const& pixel : image.pixels) { file << pixel << "\n"; }
+        for (auto const pixel : image.pixels) { file << pixel << "\n"; }
 
         return true;
     }
@@ -85,7 +85,7 @@ namespace compositing::ppm
      * @param path The path to the file.
      * @return True if the image was written successfully, false otherwise.
      */
-    [[nodiscard]] auto write_binary(image const& image, std::filesystem::path const& path) noexcept -> bool
+    [[nodiscard]] static auto write_binary(image const& image, std::filesystem::path const& path) noexcept -> bool
     {
         std::ofstream file{path};
         if (!file.is_open()) [[unlikely]] { return false; }
@@ -94,7 +94,7 @@ namespace compositing::ppm
         file << image.width << " " << image.height << "\n";
         file << "255\n";
 
-        auto const* const bytes = std::bit_cast<char const*>(image.pixels.data());
+        auto* bytes = std::bit_cast<char const*>(image.pixels.data());
         auto const size = static_cast<std::streamsize>(image.pixels.size() * sizeof(pixel));
 
         file.write(bytes, size);
