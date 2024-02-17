@@ -1,11 +1,20 @@
 #include <catch2/catch_test_macros.hpp>
 #include <image/ppm.hxx>
 
+using std::operator""s;
+using std::operator""sv;
+
+#ifdef _MSC_VER
+static auto samples_path = "../../../../samples/"s;
+#else  // ^^^ _MSC_VER / !_MSC_VER vvv
+static auto samples_path = "../../../samples/"s;
+#endif // _MSC_VER
+
 TEST_CASE("Load an ascii PPM file", "[compositing]")
 {
     namespace ppm = compositing::ppm;
 
-    auto const img = ppm::read("../../../samples/spheres.ppm");
+    auto const img = ppm::read(samples_path + "spheres.ppm"s);
 
     if (img.has_value())
     {
@@ -20,7 +29,7 @@ TEST_CASE("Load a binary PPM file", "[compositing]")
 {
     namespace ppm = compositing::ppm;
 
-    auto const img = ppm::read("../../../samples/lena.ppm");
+    auto const img = ppm::read(samples_path + "lena.ppm"s);
 
     if (img.has_value())
     {
@@ -35,9 +44,9 @@ TEST_CASE("Save an ascii PPM file", "[compositing]")
 {
     namespace ppm = compositing::ppm;
 
-    auto const img = ppm::read("../../../samples/lena.ppm");
+    auto const img = ppm::read(samples_path + "lena.ppm"s);
 
-    if (img.has_value()) { REQUIRE(ppm::write(*img, "../../../samples/lena_v2.ppm", ppm::format::ascii, true)); }
+    if (img.has_value()) { REQUIRE(ppm::write(*img, samples_path + "lena_v2.ppm"s, ppm::format::ascii, true)); }
     else { FAIL("Failed to load image"); }
 }
 
@@ -45,8 +54,8 @@ TEST_CASE("Save a binary PPM file", "[compositing]")
 {
     namespace ppm = compositing::ppm;
 
-    auto const img = ppm::read("../../../samples/spheres.ppm");
+    auto const img = ppm::read(samples_path + "lena.ppm"s);
 
-    if (img.has_value()) { REQUIRE(ppm::write(*img, "../../../samples/spheres_v2.ppm", ppm::format::binary, true)); }
+    if (img.has_value()) { REQUIRE(ppm::write(*img, samples_path + "lena_v2.ppm"s, ppm::format::binary, true)); }
     else { FAIL("Failed to load image"); }
 }
