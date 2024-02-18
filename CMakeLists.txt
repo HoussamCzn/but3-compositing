@@ -13,10 +13,17 @@ include(cmake/variables.cmake)
 
 # ---- Declare library ----
 
-set(QT_HEADERS)
-set(QT_SOURCES)
+set(QT_HEADERS
+    include/ui/menu.hxx
+    include/ui/window.hxx
+)
+set(QT_SOURCES
+    source/ui/menu.cxx
+    source/ui/window.cxx
+)
 
 add_library(compositing_lib OBJECT
+    source/application.cxx
     source/image/ppm.cxx
     source/utils/builder.cxx
     source/utils/loader.cxx
