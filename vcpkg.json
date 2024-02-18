@@ -2,17 +2,6 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
   "name": "compositing",
   "version-semver": "0.4.1",
-  "dependencies": [
-    {
-      "name": "imgui",
-      "version>=": "1.90#3",
-      "features": [
-        "docking-experimental",
-        "glfw-binding",
-        "opengl3-binding"
-      ]
-    }
-  ],
   "default-features": [],
   "features": {
     "test": {

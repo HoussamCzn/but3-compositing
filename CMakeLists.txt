@@ -13,10 +13,15 @@ include(cmake/variables.cmake)
 
 # ---- Declare library ----
 
+set(QT_HEADERS)
+set(QT_SOURCES)
+
 add_library(compositing_lib OBJECT
     source/image/ppm.cxx
     source/utils/builder.cxx
     source/utils/loader.cxx
+    ${QT_HEADERS}
+    ${QT_SOURCES}
 )
 
 target_include_directories(
@@ -27,11 +32,12 @@ target_include_directories(
 
 target_compile_features(compositing_lib PUBLIC cxx_std_20)
 
-find_package(imgui CONFIG REQUIRED)
-find_package(glfw3 REQUIRED)
-find_package(OpenGL REQUIRED)
-
-target_link_libraries(compositing_lib PUBLIC imgui::imgui glfw OpenGL::GL)
+find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
+target_link_libraries(compositing_lib PRIVATE
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets
+)
 
 # ---- Declare executable ----
 
