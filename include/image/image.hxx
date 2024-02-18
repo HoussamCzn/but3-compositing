@@ -19,12 +19,58 @@ namespace compositing::ppm
         std::uint8_t blue{0};  //< The blue component of the pixel.
 
         /*
+         * @brief Add two pixels.
+         * @param lhs The left-hand side pixel.
+         * @param rhs The right-hand side pixel.
+         * @return The sum of the two pixels.
+         */
+        [[nodiscard]] friend constexpr auto operator+(pixel const& lhs, pixel const& rhs) noexcept -> pixel
+        {
+            return {static_cast<std::uint8_t>(lhs.red + rhs.red), static_cast<std::uint8_t>(lhs.green + rhs.green),
+                    static_cast<std::uint8_t>(lhs.blue + rhs.blue)};
+        }
+
+        /*
+         * @brief Multiply a pixel by a scalar.
+         * @param lhs The left-hand side pixel.
+         * @param rhs The right-hand side scalar.
+         * @return The product of the pixel and the scalar.
+         */
+        [[nodiscard]] friend constexpr auto operator*(pixel const& lhs, float rhs) noexcept -> pixel
+        {
+            return {static_cast<std::uint8_t>(lhs.red * rhs), static_cast<std::uint8_t>(lhs.green * rhs),
+                    static_cast<std::uint8_t>(lhs.blue * rhs)};
+        }
+
+        /*
+         * @brief Multiply a pixel by a scalar.
+         * @param lhs The left-hand side pixel.
+         * @param rhs The right-hand side scalar.
+         * @return The product of the pixel and the scalar.
+         */
+        [[nodiscard]] friend constexpr auto operator*(float lhs, pixel const& rhs) noexcept -> pixel { return rhs * lhs; }
+
+        /*
+         * @brief Add a pixel to another pixel.
+         * @param rhs The right-hand side pixel.
+         * @return The sum of the two pixels.
+         */
+        constexpr auto operator+=(pixel const& rhs) noexcept -> pixel& { return *this = *this + rhs; }
+
+        /*
+         * @brief Multiply a pixel by a scalar.
+         * @param rhs The right-hand side scalar.
+         * @return The product of the pixel and the scalar.
+         */
+        constexpr auto operator*=(float rhs) noexcept -> pixel& { return *this = *this * rhs; }
+
+        /*
          * @brief Compare two pixels.
          * @param lhs The left-hand side pixel.
          * @param rhs The right-hand side pixel.
          * @return True if the pixels are equal, false otherwise.
          */
-        [[nodiscard]] friend auto operator==(pixel const& lhs, pixel const& rhs) noexcept -> bool
+        [[nodiscard]] friend constexpr auto operator==(pixel const& lhs, pixel const& rhs) noexcept -> bool
         {
             return lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue;
         }
@@ -35,7 +81,10 @@ namespace compositing::ppm
          * @param rhs The right-hand side pixel.
          * @return True if the pixels are not equal, false otherwise.
          */
-        [[nodiscard]] friend auto operator!=(pixel const& lhs, pixel const& rhs) noexcept -> bool { return !(lhs == rhs); }
+        [[nodiscard]] friend constexpr auto operator!=(pixel const& lhs, pixel const& rhs) noexcept -> bool
+        {
+            return !(lhs == rhs);
+        }
 
         /*
          * @brief Write a pixel to an output stream.
@@ -43,7 +92,7 @@ namespace compositing::ppm
          * @param pixel The pixel to write.
          * @return The output stream.
          */
-        [[nodiscard]] friend auto operator<<(std::ostream& os, pixel const& pixel) noexcept -> std::ostream&
+        [[nodiscard]] friend inline auto operator<<(std::ostream& os, pixel const& pixel) noexcept -> std::ostream&
         {
             return os << static_cast<int>(pixel.red) << " " << static_cast<int>(pixel.green) << " "
                       << static_cast<int>(pixel.blue);
