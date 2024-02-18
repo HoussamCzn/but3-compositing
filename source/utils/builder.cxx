@@ -60,4 +60,4 @@ namespace compositing::utils
 
         return m_final_image;
     }
-} // namespace compositing
+} // namespace compositing::utils

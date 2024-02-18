@@ -37,4 +37,4 @@ namespace compositing::utils
 
         return images;
     }
-} // namespace compositing
+} // namespace compositing::utils
