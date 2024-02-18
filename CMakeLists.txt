@@ -16,6 +16,7 @@ include(cmake/variables.cmake)
 add_library(compositing_lib OBJECT
     source/image/ppm.cxx
     source/utils/builder.cxx
+    source/utils/loader.cxx
 )
 
 target_include_directories(
