@@ -13,6 +13,7 @@ include(Catch)
 
 add_executable(compositing_test
     source/builder.test.cxx
+    source/loader.test.cxx
     source/ppm.test.cxx
 )
 
