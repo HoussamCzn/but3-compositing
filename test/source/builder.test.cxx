@@ -21,7 +21,7 @@ TEST_CASE("Compose several images", "[compositing]")
 
     if (img1.has_value() && img2.has_value() && img3.has_value())
     {
-        builder b;
+        utils::builder b;
         auto const result_img =
             b.images({*img1, *img2, *img3}).weights(weights).output_path(samples_path + "spheres/composed.ppm").composite();
 

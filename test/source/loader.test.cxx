@@ -14,7 +14,7 @@ TEST_CASE("Load all samples", "[compositing]")
 {
     using namespace compositing;
 
-    loader l;
+    utils::loader l;
     auto const images = l.input_path(samples_path + "spheres/").load();
 
     REQUIRE(images.size() == 4);
@@ -24,7 +24,7 @@ TEST_CASE("Load all samples with a filter", "[compositing]")
 {
     using namespace compositing;
 
-    loader l;
+    utils::loader l;
     auto const images = l.input_path(samples_path + "spheres/")
                             .skip_if([](auto const& p) { return p.filename().string().find("composed") != std::string::npos; })
                             .load();
@@ -36,7 +36,7 @@ TEST_CASE("Load all samples until reaching the file limit", "[compositing]")
 {
     using namespace compositing;
 
-    loader l;
+    utils::loader l;
     auto const images = l.input_path(samples_path + "spheres/").max_file_count(2).load();
 
     REQUIRE(images.size() == 2);
