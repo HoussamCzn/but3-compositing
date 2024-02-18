@@ -2,6 +2,7 @@
 
 #include <bit>     // std::bit_cast
 #include <cstddef> // std::size_t
+#include <cstdint> // std::uint32_t
 #include <fstream> // std::ifstream, std::ofstream
 
 namespace compositing::ppm
@@ -47,10 +48,11 @@ namespace compositing::ppm
     [[nodiscard]] static auto read_binary(std::ifstream& file, std::uint32_t width, std::uint32_t height) noexcept -> image
     {
         image img = {
-            .pixels = std::vector<pixel>(static_cast<std::size_t>(width) * height),
+            .pixels = std::vector<pixel>(static_cast<std::size_t>(width * height)),
             .width = width,
             .height = height,
         };
+
         auto* const bytes = std::bit_cast<char*>(img.pixels.data());
         auto const size = static_cast<std::streamsize>(img.pixels.size() * sizeof(pixel));
 
@@ -74,7 +76,7 @@ namespace compositing::ppm
         file << image.width << " " << image.height << "\n";
         file << "255\n";
 
-        for (auto const pixel : image.pixels) { file << pixel << "\n"; }
+        std::ranges::copy(image.pixels, std::ostream_iterator<pixel>(file, "\n"));
 
         return true;
     }
@@ -94,9 +96,9 @@ namespace compositing::ppm
         file << image.width << " " << image.height << "\n";
         file << "255\n";
 
-        auto* bytes = std::bit_cast<char const*>(image.pixels.data());
+        auto const* const bytes = std::bit_cast<char const*>(image.pixels.data());
         auto const size = static_cast<std::streamsize>(image.pixels.size() * sizeof(pixel));
-
+        
         file.write(bytes, size);
 
         return true;
