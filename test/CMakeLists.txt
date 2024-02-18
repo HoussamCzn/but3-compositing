@@ -12,6 +12,7 @@ include(Catch)
 # ---- Tests ----
 
 add_executable(compositing_test
+    source/builder.test.cxx
     source/ppm.test.cxx
 )
 
