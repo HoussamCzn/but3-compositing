@@ -98,7 +98,7 @@ namespace compositing::ppm
 
         auto const* const bytes = std::bit_cast<char const*>(image.pixels.data());
         auto const size = static_cast<std::streamsize>(image.pixels.size() * sizeof(pixel));
-        
+
         file.write(bytes, size);
 
         return true;
