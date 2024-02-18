@@ -1,9 +1,10 @@
 #pragma once
 
-#include "image/ppm.hxx" // ppm::image
+#include "image/image.hxx" // ppm::image
 
-#include <functional> // std::function
-#include <optional>   // std::optional
+#include <filesystem>    // std::filesystem::path
+#include <functional>    // std::function
+#include <unordered_map> // std::unordered_map
 
 namespace compositing::utils
 {

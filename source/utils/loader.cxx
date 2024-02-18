@@ -1,5 +1,7 @@
 #include "utils/loader.hxx"
 
+#include "image/ppm.hxx" // ppm::read
+
 namespace compositing::utils
 {
     auto loader::input_path(std::filesystem::path const& path) -> loader&

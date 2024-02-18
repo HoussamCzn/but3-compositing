@@ -1,5 +1,7 @@
 #include "utils/builder.hxx"
 
+#include "image/ppm.hxx" // ppm::image, ppm::pixel
+
 #include <algorithm> // std::ranges::minmax_element
 #include <execution> // std::execution::par_unseq
 #include <numeric>   // std::accumulate

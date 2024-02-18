@@ -1,6 +1,9 @@
 #pragma once
 
-#include "image/ppm.hxx" // ppm::image
+#include "image/image.hxx" // ppm::image
+
+#include <filesystem> // std::filesystem::path
+#include <vector>     // std::vector
 
 namespace compositing::utils
 {
