@@ -41,10 +41,10 @@ namespace compositing::utils
 
         /*
          * @brief Loads images from the configured path.
-         * @return A vector of images.
-         * @note The images are loaded in the order they are found in the directory.
+         * @return A map of images loaded from the configured path.
+         * @note The key of the map is the path of the image and the value is the image itself.
          */
-        [[nodiscard]] auto load() -> std::vector<ppm::image>;
+        [[nodiscard]] auto load() -> std::unordered_map<std::filesystem::path, ppm::image>;
 
     private:
 

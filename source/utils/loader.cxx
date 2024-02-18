@@ -23,15 +23,15 @@ namespace compositing::utils
         return *this;
     }
 
-    auto loader::load() -> std::vector<ppm::image>
+    auto loader::load() -> std::unordered_map<std::filesystem::path, ppm::image>
     {
-        std::vector<ppm::image> images;
+        std::unordered_map<std::filesystem::path, ppm::image> images;
 
         for (auto const& entry : std::filesystem::recursive_directory_iterator(m_input_path))
         {
             auto const& path = entry.path();
             if (m_skip_predicate && m_skip_predicate(path)) continue;
-            if (auto image = ppm::read(path); image.has_value()) { images.push_back(std::move(*image)); }
+            if (auto image = ppm::read(path); image.has_value()) { images[path] = std::move(*image); }
             if (images.size() == m_max_count) break;
         }
 
