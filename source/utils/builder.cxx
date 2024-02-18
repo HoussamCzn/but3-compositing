@@ -1,8 +1,8 @@
 #include "utils/builder.hxx"
 
-#include <algorithm>
-#include <execution>
-#include <numeric>
+#include <algorithm> // std::ranges::minmax_element
+#include <execution> // std::execution::par_unseq
+#include <numeric>   // std::accumulate
 
 namespace compositing
 {
