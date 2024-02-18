@@ -1,6 +1,6 @@
 #include "utils/loader.hxx"
 
-namespace compositing
+namespace compositing::utils
 {
     auto loader::input_path(std::filesystem::path const& path) -> loader&
     {

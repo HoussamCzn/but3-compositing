@@ -4,7 +4,7 @@
 #include <execution> // std::execution::par_unseq
 #include <numeric>   // std::accumulate
 
-namespace compositing
+namespace compositing::utils
 {
     auto builder::images(std::vector<ppm::image> const& images) -> builder&
     {

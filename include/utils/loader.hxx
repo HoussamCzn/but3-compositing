@@ -5,7 +5,7 @@
 #include <functional> // std::function
 #include <optional>   // std::optional
 
-namespace compositing
+namespace compositing::utils
 {
     /*
      * @brief A loader for images.
@@ -52,4 +52,4 @@ namespace compositing
         std::filesystem::path m_input_path;                                 //< The path from which images should be loaded.
         std::size_t m_max_count = std::numeric_limits<std::size_t>::max();  //< The maximum number of images to be loaded.
     };
-} // namespace compositing
+} // namespace compositing::utils

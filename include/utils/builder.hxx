@@ -2,7 +2,7 @@
 
 #include "image/ppm.hxx" // ppm::image
 
-namespace compositing
+namespace compositing::utils
 {
     /*
      * @brief A builder class for compositing images
@@ -60,4 +60,4 @@ namespace compositing
         std::filesystem::path m_output_path; //< The path of the output image
         ppm::image m_final_image;            //< The composite image
     };
-} // namespace compositing
+} // namespace compositing::utils
