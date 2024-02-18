@@ -43,7 +43,7 @@ namespace compositing
 		* @return A vector of images.
 		* @note The images are loaded in the order they are found in the directory.
 		*/
-		auto load() -> std::vector<ppm::image>;
+		[[nodiscard]] auto load() -> std::vector<ppm::image>;
 
 	private:
 
