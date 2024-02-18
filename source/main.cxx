@@ -1,8 +1,8 @@
-#include <iostream>
+#include <application.hxx>
 
-auto main() -> int
+auto main(int argc, char* argv[]) -> int
 {
-    std::cout << "Hello, World!\n";
+    using compositing::application;
 
-    return 0;
+    return application::run(argc, argv);
 }
