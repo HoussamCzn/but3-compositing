@@ -52,10 +52,10 @@ namespace compositing::ppm
             .width = width,
             .height = height,
         };
-
         auto* const bytes = std::bit_cast<char*>(img.pixels.data());
         auto const size = static_cast<std::streamsize>(img.pixels.size() * sizeof(pixel));
 
+        file.ignore();
         file.read(bytes, size);
 
         return img;
@@ -120,8 +120,6 @@ namespace compositing::ppm
         file >> width;
         file >> height;
         file >> max_color;
-
-        file.ignore();
 
         if (magic_number == "P3") { return read_ascii(file, width, height); }
         if (magic_number == "P6") { return read_binary(file, width, height); }
