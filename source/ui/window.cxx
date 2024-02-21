@@ -134,6 +134,10 @@ namespace compositing::ui
                                                   selected_file.toStdString())
                                           .c_str());
             }
+            else
+            {
+                QMessageBox::information(this, "Success", "Composite image saved successfully.");
+            }
         }
     }
 
