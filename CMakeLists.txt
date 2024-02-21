@@ -4,7 +4,7 @@ include(cmake/prelude.cmake)
 
 project(
     compositing
-    VERSION 0.7.1
+    VERSION 1.0.0
     LANGUAGES CXX
 )
 
