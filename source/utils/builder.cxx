@@ -1,8 +1,8 @@
 #include "utils/builder.hxx"
 
-#include "image/ppm.hxx" // ppm::image, ppm::pixel
+#include "image/image.hxx" // ppm::image, ppm::pixel
 
-#include <algorithm> // std::ranges::minmax_element
+#include <algorithm> // std::ranges::max_element, std::ranges::for_each
 #include <execution> // std::execution::par_unseq
 #include <numeric>   // std::accumulate
 
@@ -12,12 +12,10 @@ namespace compositing::utils
     {
         m_images = images;
 
-        if (!m_images.empty())
+        if (!m_images.empty()) [[likely]]
         {
-            auto const [min_width, max_width] =
-                std::ranges::minmax_element(m_images, {}, [](auto const& image) { return image.width; });
-            auto const [min_height, max_height] =
-                std::ranges::minmax_element(m_images, {}, [](auto const& image) { return image.height; });
+            auto const max_width = std::ranges::max_element(m_images, {}, [](ppm::image const& image) { return image.width; });
+            auto const max_height = std::ranges::max_element(m_images, {}, [](ppm::image const& image) { return image.height; });
 
             return output_size(max_width->width, max_height->height);
         }
@@ -50,12 +48,12 @@ namespace compositing::utils
 
     auto builder::composite() -> ppm::image
     {
-        auto const total_weight = std::accumulate(m_weights.begin(), m_weights.end(), 0.0F);
-        std::ranges::for_each(m_images, [this, total_weight](auto const& image) {
+        auto const total_weight = std::accumulate(std::begin(m_weights), std::end(m_weights), 0.F);
+        std::ranges::for_each(m_images, [this, total_weight](ppm::image const& image) {
             auto const weight = m_weights[static_cast<std::size_t>(std::ranges::distance(m_images.data(), &image))];
-            std::transform(std::execution::par_unseq, m_final_image.pixels.begin(), m_final_image.pixels.end(),
-                           image.pixels.begin(), m_final_image.pixels.begin(),
-                           [weight, total_weight](auto const& final_pixel, auto const& pixel) -> ppm::pixel {
+            std::transform(std::execution::par_unseq, std::begin(m_final_image.pixels), std::end(m_final_image.pixels),
+                           std::begin(image.pixels), std::begin(m_final_image.pixels),
+                           [weight, total_weight](ppm::pixel const final_pixel, ppm::pixel const pixel) -> ppm::pixel {
                                return final_pixel + pixel * (weight / total_weight);
                            });
         });
