@@ -4,7 +4,7 @@ include(cmake/prelude.cmake)
 
 project(
     compositing
-    VERSION 0.6.1
+    VERSION 0.7.1
     LANGUAGES CXX
 )
 
@@ -17,12 +17,14 @@ set(QT_HEADERS
     include/ui/listing.hxx
     include/ui/menu.hxx
     include/ui/settings.hxx
+    include/ui/viewer.hxx
     include/ui/window.hxx
 )
 set(QT_SOURCES
 	source/ui/listing.cxx
     source/ui/menu.cxx
     source/ui/settings.cxx
+    source/ui/viewer.cxx
     source/ui/window.cxx
 )
 
