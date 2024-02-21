@@ -28,6 +28,8 @@ set(QT_SOURCES
     source/ui/window.cxx
 )
 
+set(CMAKE_AUTOMOC ON)
+
 add_library(compositing_lib OBJECT
     source/application.cxx
     source/image/ppm.cxx

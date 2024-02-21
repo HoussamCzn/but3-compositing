@@ -53,15 +53,6 @@
       }
     },
     {
-      "name": "qt-moc",
-      "hidden": true,
-      "cacheVariables": {
-        "CMAKE_AUTOMOC": "ON",
-        "CMAKE_AUTOUIC": "OFF",
-        "CMAKE_AUTORCC": "OFF"
-      }
-    },
-    {
       "name": "flags-gcc-clang",
       "description": "These flags are supported by both GCC and Clang",
       "hidden": true,
@@ -91,7 +82,7 @@
       "name": "ci-linux",
       "generator": "Unix Makefiles",
       "hidden": true,
-      "inherits": ["flags-gcc-clang", "ci-std", "qt-moc"],
+      "inherits": ["flags-gcc-clang", "ci-std"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
@@ -100,14 +91,14 @@
       "name": "ci-darwin",
       "generator": "Unix Makefiles",
       "hidden": true,
-      "inherits": ["flags-appleclang", "ci-std", "qt-moc"],
+      "inherits": ["flags-appleclang", "ci-std"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
     },
     {
       "name": "ci-win64",
-      "inherits": ["flags-msvc", "ci-std", "qt-moc"],
+      "inherits": ["flags-msvc", "ci-std"],
       "generator": "Visual Studio 17 2022",
       "architecture": "x64",
       "hidden": true
