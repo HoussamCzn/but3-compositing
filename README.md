@@ -29,7 +29,7 @@ This application is a small tool designed for compositing images using PPM files
 
 - Qt6 for the graphical user interface.
 - CMake for building the application.
-- A C++ compiler with C++17 support.
+- A C++ compiler with C++20 support.
 
 ## Installation
 
