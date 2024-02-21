@@ -92,7 +92,7 @@ namespace compositing::ppm
          * @param pixel The pixel to write.
          * @return The output stream.
          */
-        [[nodiscard]] friend inline auto operator<<(std::ostream& os, pixel const& pixel) noexcept -> std::ostream&
+        [[nodiscard]] friend inline auto operator<<(std::ostream& os, pixel const& pixel) -> std::ostream&
         {
             return os << static_cast<int>(pixel.red) << " " << static_cast<int>(pixel.green) << " "
                       << static_cast<int>(pixel.blue);
