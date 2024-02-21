@@ -5,26 +5,26 @@
 
 namespace compositing::ui
 {
-    menu::menu(QWidget* parent)
-        : QMenuBar(parent), m_file_menu(addMenu("File")), m_options_menu(addMenu("Options")), m_help_menu(addMenu("Help"))
-    {}
+    menu::menu(QWidget* parent) : QMenuBar(parent) {}
 
-    auto menu::file_menu() -> QMenu* const { return m_file_menu; }
+    auto menu::file_menu() -> QMenu& { return *m_file_menu; }
 
-    auto menu::options_menu() -> QMenu* const { return m_options_menu; }
+    auto menu::options_menu() -> QMenu& { return *m_options_menu; }
 
-    auto menu::help_menu() -> QMenu* const { return m_help_menu; }
+    auto menu::help_menu() -> QMenu& { return *m_help_menu; }
 
-    void menu::add_action(QMenu* const p_menu, QString const& text, QKeySequence const& shortcut, std::function<void()> slot,
-                          QString const& tip)
+    void menu::add_item(QMenu& menu, QString const& text, QKeySequence const& shortcut, std::function<void()> slot,
+                        QString const& tip)
     {
-        if (p_menu != nullptr) [[likely]]
-        {
-            auto* action = new QAction(text, this);
-            action->setShortcut(shortcut);
-            action->setStatusTip(tip);
-            connect(action, &QAction::triggered, this, slot);
-            p_menu->addAction(action);
-        }
+        auto& action = m_actions.emplace_back(new QAction(text, this));
+        action->setShortcut(shortcut);
+        action->setStatusTip(tip);
+        connect(action.get(), &QAction::triggered, this, slot);
+        menu.addAction(action.get());
+    }
+
+    void menu::add_item(QMenu& menu, QString const& text, QString const& shortcut, std::function<void()> slot, QString const& tip)
+    {
+        add_item(menu, text, QKeySequence(shortcut), slot, tip);
     }
 } // namespace compositing::ui
