@@ -53,8 +53,6 @@ CheckOptions:
     value: "true"
   - key: "readability-qualified-auto.AddConstToQualified"
     value: "true"
-  - key: "readability-redundant-access-specifiers.CheckFirstDeclaration"
-    value: "true"
   - key: "readability-simplify-boolean-expr.ChainedConditionalAssignment"
     value: "true"
   - key: "readability-simplify-boolean-expr.ChainedConditionalReturn"
